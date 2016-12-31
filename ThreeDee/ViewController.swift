@@ -61,8 +61,8 @@ class ViewController: NSViewController {
     bounceSpeed += bounceAccel * deltaTime
     modelY += bounceSpeed * deltaTime
     if modelY < 0 {
-      modelY = 0
-      bounceSpeed = -bounceSpeed
+      modelY -= bounceSpeed * deltaTime    // restore position
+      bounceSpeed = -bounceSpeed           // reverse direction
     }
 
     // Change the scaling of the cube based on the bounce position.
