@@ -87,9 +87,9 @@ struct Vertex {
   var b: Float = 0
   var a: Float = 1
 
-//  var nx: Float = 0   // normal vector
-//  var ny: Float = 0
-//  var nz: Float = 0
+  var nx: Float = 0  // normal vector (using for lighting)
+  var ny: Float = 0
+  var nz: Float = 0
 }
 
 /*
@@ -119,75 +119,79 @@ let model: [Triangle] = {
   var triangles = [Triangle]()
 
   var triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 0, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y: -10, z: -10, r: 0, g: 1, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 0, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
+  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
+  triangle.vertices[2] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 1, a: 1)
-  triangle.vertices[2] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 0, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
+  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: 1)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1)
-  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 0, nz: -1)
+  triangle.vertices[1] = Vertex(x:  10, y: -10, z: -10, r: 0, g: 1, b: 0, a: 1, nx: 0, ny: 0, nz: -1)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: -1)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 0, b: 1, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 0, g: 0, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 0, a: 1, nx: 0, ny: 0, nz: -1)
+  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 1, a: 1, nx: 0, ny: 0, nz: -1)
+  triangle.vertices[2] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 0, b: 1, a: 1, nx: 0, ny: 0, nz: -1)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
+  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
+  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 1, g: 0, b: 0, a: 1, nx: 0, ny: 1, nz: 0)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1)
-  triangle.vertices[2] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
+  triangle.vertices[1] = Vertex(x:  10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
+  triangle.vertices[2] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
+  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
+  triangle.vertices[2] = Vertex(x:  10, y: -10, z: -10, r: 1, g: 1, b: 1, a: 1, nx: 0, ny: -1, nz: 0)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x:  10, y: -10, z: -10, r: 0, g: 1, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 1, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 0, a: 1)
+  triangle.vertices[0] = Vertex(x:  10, y: -10, z: -10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
+  triangle.vertices[1] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 1, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 0, g: 1, b: 0, a: 1)
+  triangle.vertices[0] = Vertex(x:  10, y: -10, z:  10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
+  triangle.vertices[1] = Vertex(x:  10, y:  10, z: -10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
+  triangle.vertices[2] = Vertex(x:  10, y:  10, z:  10, r: 0, g: 1, b: 0, a: 1, nx: 1, ny: 0, nz: 0)
+  triangles.append(triangle)
+
+  // The yellow side has normal vectors that point in different directions,
+  // which makes it appear rounded when lighting is applied. For the other
+  // sides all vertices have the same normal vectors, making them appear flat.
+
+  triangle = Triangle()
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny: -0.577, nz: -0.577)
+  triangle.vertices[1] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny:  0.577, nz: -0.577)
+  triangle.vertices[2] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny: -0.577, nz:  0.577)
   triangles.append(triangle)
 
   triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z: -10, r: 1, g: 1, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 1, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 0, a: 1)
-  triangles.append(triangle)
-
-  triangle = Triangle()
-  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 0, a: 1)
-  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 1, b: 0, a: 1)
-  triangle.vertices[2] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 1, b: 0, a: 1)
+  triangle.vertices[0] = Vertex(x: -10, y: -10, z:  10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny: -0.577, nz:  0.577)
+  triangle.vertices[1] = Vertex(x: -10, y:  10, z:  10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny:  0.577, nz:  0.577)
+  triangle.vertices[2] = Vertex(x: -10, y:  10, z: -10, r: 1, g: 1, b: 0, a: 1, nx: -0.577, ny:  0.577, nz: -0.577)
   triangles.append(triangle)
 
   return triangles
@@ -234,6 +238,23 @@ var modelOriginZ: Float = 10
 var cameraX: Float = 0
 var cameraY: Float = 20
 var cameraZ: Float = -20
+
+/* The following options control the lighting of the scene. The calculations to
+   apply the light happen in the "fragment shader". */
+
+var ambientR: Float = 1
+var ambientG: Float = 1
+var ambientB: Float = 1
+var ambientIntensity: Float = 0.2
+
+var diffuseR: Float = 1
+var diffuseG: Float = 1
+var diffuseB: Float = 1
+var diffuseIntensity: Float = 0.8
+
+var diffuseX: Float = 0    // direction of the diffuse light
+var diffuseY: Float = 0    // (this vector should have length 1)
+var diffuseZ: Float = 1
 
 
 // MARK: - Configuration options
@@ -368,6 +389,16 @@ private func transformAndProject() -> [Triangle] {
       newVertex.x += modelX
       newVertex.y += modelY
       newVertex.z += modelZ
+
+      // We also need to rotate the normal vector so that it stays aligned with
+      // the orientation of the vertex. Because in this demo app we only rotate
+      // about the Y-axis, I've only included that rotation code, not the other
+      // axes. If I had used a matrix for the vertex coordinates, then I simply
+      // could've multiplied the normal vector with that same rotation matrix.
+      tempA =  cos(modelRotateY)*newVertex.nx + sin(modelRotateY)*newVertex.nz
+      tempB = -sin(modelRotateY)*newVertex.nx + cos(modelRotateY)*newVertex.nz
+      newVertex.nx = tempA
+      newVertex.nz = tempB
 
       // Store the new vertex into the new triangle.
       newTriangle.vertices[i] = newVertex
@@ -619,6 +650,10 @@ fileprivate struct Edge {
   var a: Float = 0
 
   var z: Float = 0   // for checking and filling in the depth buffer
+
+  var nx: Float = 0  // interpolated normal vector
+  var ny: Float = 0
+  var nz: Float = 0
 }
 
 /* There are as many spans as there are vertical lines in screenspace. */
@@ -689,6 +724,15 @@ fileprivate func addEdge(from vertex1: Vertex, to vertex2: Vertex) {
   let aStep = (end.a - start.a)/len
   var aPos = start.a
 
+  let nxStep = (end.nx - start.nx)/len
+  var nxPos = start.nx
+
+  let nyStep = (end.ny - start.ny)/len
+  var nyPos = start.ny
+
+  let nzStep = (end.nz - start.nz)/len
+  var nzPos = start.nz
+
   while yPos < yEnd {
     let x = Int(ceil(xPos - 0.5))       // now we make x an integer too
 
@@ -701,8 +745,10 @@ fileprivate func addEdge(from vertex1: Vertex, to vertex2: Vertex) {
       if yPos > lastSpanLine { lastSpanLine = yPos }
 
       // Add this edge to the span for this line.
-      let edge = Edge(x: x, r: rPos, g: gPos, b: bPos, a: aPos, z: zPos)
-      spans[yPos].edges.append(edge)
+      spans[yPos].edges.append(Edge(x: x,
+                                    r: rPos, g: gPos, b: bPos, a: aPos,
+                                    z: zPos,
+                                    nx: nxPos, ny: nyPos, nz: nzPos))
     }
 
     // Move the interpolations one step forward.
@@ -713,6 +759,9 @@ fileprivate func addEdge(from vertex1: Vertex, to vertex2: Vertex) {
     gPos += gStep
     bPos += bStep
     aPos += aStep
+    nxPos += nxStep
+    nyPos += nyStep
+    nzPos += nzStep
   }
 }
 
@@ -732,9 +781,9 @@ fileprivate func drawSpans() {
 
         for x in edge1.x ..< edge2.x {
           // Interpolate between the colors again.
-          let r = edge1.r + (edge2.r - edge1.r) * pos
-          let g = edge1.g + (edge2.g - edge1.g) * pos
-          let b = edge1.b + (edge2.b - edge1.b) * pos
+          var r = edge1.r + (edge2.r - edge1.r) * pos
+          var g = edge1.g + (edge2.g - edge1.g) * pos
+          var b = edge1.b + (edge2.b - edge1.b) * pos
           let a = edge1.a + (edge2.a - edge1.a) * pos
 
           /* The depth buffer makes sure that a triangle that is further away
@@ -755,13 +804,29 @@ fileprivate func drawSpans() {
             }
           }
 
+          /* Also interpolate the normal vector. Note that for many triangles
+             in the cube, all three vertices have the same normal vector. So
+             all pixels in such a triangle get identical normal vectors. But
+             this is not a requirement: I've also included a triangle whose
+             vertices have different normal vectors, giving it a more "rounded"
+             look. */
+          let nx = edge1.nx + (edge2.nx - edge1.nx) * pos
+          let ny = edge1.ny + (edge2.ny - edge1.ny) * pos
+          let nz = edge1.nz + (edge2.nz - edge1.nz) * pos
+
           if shouldDrawPixel {
             /* This is where the fragment shader does its job. It is called 
                once for every pixel that we must draw, with interpolated values
-               for the color, texture coordinates, and so on. Here we simply 
-               "return" the color for the pixel, but you could do all kinds of 
-               fun things, such as calculate the lighting, sample from a texture,
-               etc. */
+               for the color, texture coordinates, and so on. Here you can do
+               all kinds of fun things. We calculate the color of the pixel
+               based on a very simple lighting model, but you can also sample
+               from a texture, etc. */
+
+            let factor = min(max(0, -1*(nx*diffuseX + ny*diffuseY + nz*diffuseZ)), 1)
+
+            r *= (ambientR*ambientIntensity + factor*diffuseR*diffuseIntensity)
+            g *= (ambientG*ambientIntensity + factor*diffuseG*diffuseIntensity)
+            b *= (ambientB*ambientIntensity + factor*diffuseB*diffuseIntensity)
 
             setPixel(x: x, y: y, r: r, g: g, b: b, a: a)
           }
