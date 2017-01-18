@@ -828,6 +828,10 @@ fileprivate func drawSpans() {
             g *= (ambientG*ambientIntensity + factor*diffuseG*diffuseIntensity)
             b *= (ambientB*ambientIntensity + factor*diffuseB*diffuseIntensity)
 
+            r = max(min(r, 1), 0)   // clamp the colors
+            g = max(min(g, 1), 0)   // so they don't
+            b = max(min(b, 1), 0)   // become too bright
+
             setPixel(x: x, y: y, r: r, g: g, b: b, a: a)
           }
 
