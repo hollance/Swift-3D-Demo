@@ -4,6 +4,8 @@ This is a simple demo app for macOS that shows how to draw a 3D object without u
 
 *Want to know how it works?* Check out [Render.swift](ThreeDee/Render.swift). It has lots of explanations.
 
+Also [read the accompanying blog post](http://machinethink.net/blog/3d-rendering-without-shaders/). It has pretty pictures!
+
 The app doesn't use any 3D or math APIs: everything you see is done by the logic in the **Render.swift** source file. The only API used for drawing is a `setPixel()` function that writes a pixel RGBA value to a bitmap. The math used does not involve matrices, so you can see exactly what happens when and why.
 
 Because this is only intended for educational purposes, there is some stuff that doesn't work super great:
