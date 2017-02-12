@@ -269,6 +269,13 @@ fileprivate var depthBuffer: [Float] = {
   return [Float](repeating: 0, count: Int(context!.width * context!.height))
 }()
 
+/* Select render mode here */
+enum RenderMode {
+    case nominal
+    case wireframe
+}
+
+fileprivate let renderMode = RenderMode.nominal
 
 // MARK: - The cool stuff starts here
 
@@ -674,14 +681,23 @@ fileprivate func draw(triangle: Triangle) {
   firstSpanLine = Int.max
   lastSpanLine = -1
 
-  // Interpolate all the things!
-  addEdge(from: triangle.vertices[0], to: triangle.vertices[1])
-  addEdge(from: triangle.vertices[1], to: triangle.vertices[2])
-  addEdge(from: triangle.vertices[2], to: triangle.vertices[0])
-
-  // And finally, draw the horizontal strips. This is where the fragment
-  // shader gets called.
-  drawSpans()
+  switch renderMode {
+    case .nominal:
+      // Interpolate all the things!
+      addEdge(from: triangle.vertices[0], to: triangle.vertices[1])
+      addEdge(from: triangle.vertices[1], to: triangle.vertices[2])
+      addEdge(from: triangle.vertices[2], to: triangle.vertices[0])
+        
+      // And finally, draw the horizontal strips. This is where the fragment
+      // shader gets called.
+      drawSpans()
+        
+    case .wireframe:
+      drawLineBresenham(from: triangle.vertices[0], to: triangle.vertices[1])
+      drawLineBresenham(from: triangle.vertices[1], to: triangle.vertices[2])
+      drawLineBresenham(from: triangle.vertices[2], to: triangle.vertices[0])
+    }
+    
 }
 
 /* Clipping is an important feature of a rasterizer. You don't want to draw
@@ -764,6 +780,43 @@ fileprivate func addEdge(from vertex1: Vertex, to vertex2: Vertex) {
     nzPos += nzStep
   }
 }
+
+/* Draw pixels directly to frame buffer from 2 vertices using Bresenham's line algorithm */
+fileprivate func drawLineBresenham(from vertex0: Vertex, to vertex1: Vertex) {
+    
+  var x0 = Int(vertex0.x)
+  var y0 = Int(vertex0.y)
+    
+  let x1 = Int(vertex1.x)
+  let y1 = Int(vertex1.y)
+  
+  let dx = abs(x1-x0)
+  let sx = x0<x1 ? 1 : -1
+  
+  let dy = abs(y1-y0)
+  let sy = y0<y1 ? 1 : -1
+  
+  var err = (dx>dy ? dx : -dy)/2
+  var e2 = 0
+  
+  while (true) {
+    setPixel(x: x0, y: y0, r: 1, g: 1, b: 1, a: 1)
+        
+    if (x0==x1 && y0==y1) {
+      break;
+    }
+    e2 = err;
+    if (e2 > -dx) {
+      err -= dy
+      x0 += sx
+    }
+    if (e2 < dy) {
+      err += dx
+      y0 += sy
+    }
+  }
+}
+
 
 /* Once we have calculated all the spans for the given triangle, we can draw
    those horizontal strips. We interpolate the x-position (step one pixel at
